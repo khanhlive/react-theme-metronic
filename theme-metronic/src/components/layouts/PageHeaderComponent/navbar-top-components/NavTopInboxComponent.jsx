@@ -54,20 +54,28 @@ export default class NavTopInboxComponent extends Component {
     this.renderMessages = this.renderMessages.bind(this);
   }
   renderMessages() {
-    return this.state.dataSource.map((item) => (
-      <li key={`inbox-item-${item.id}`}>
-        <a href={item.url}>
-          <span className="photo">
-            <img src={item.imageUrl} className="img-circle" />
-          </span>
-          <span className="subject">
-            <span className="from">{item.fromUser}</span>
-            <span className="time">{item.date}</span>
-          </span>
-          <span className="message">{item.message}</span>
-        </a>
-      </li>
-    ));
+    return (
+      <ul
+        className="dropdown-menu-list scroller"
+        style={{ height: 275 }}
+        data-handle-color="#637283"
+      >
+        {this.state.dataSource.map((item) => (
+          <li key={`inbox-item-${item.id}`}>
+            <a href={item.url}>
+              <span className="photo">
+                <img src={item.imageUrl} className="img-circle" />
+              </span>
+              <span className="subject">
+                <span className="from">{item.fromUser}</span>
+                <span className="time">{item.date}</span>
+              </span>
+              <span className="message">{item.message}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
   }
   render() {
     return (
@@ -80,24 +88,20 @@ export default class NavTopInboxComponent extends Component {
           data-close-others="true"
         >
           <i className="icon-envelope-open" />
-          <span className="badge badge-default">4 </span>
+          <span className="badge badge-default">
+            {this.state.dataSource.length}
+          </span>
         </a>
         <ul className="dropdown-menu">
           <li className="external">
             <h3>
-              You have <span className="bold">7 New</span> Messages
+              You have{" "}
+              <span className="bold">{this.state.dataSource.length}</span>{" "}
+              Messages
             </h3>
             <a href="page_inbox.html">view all</a>
           </li>
-          <li>
-            <ul
-              className="dropdown-menu-list scroller"
-              style={{ height: 275 }}
-              data-handle-color="#637283"
-            >
-              {this.renderMessages()}
-            </ul>
-          </li>
+          <li>{this.renderMessages()}</li>
         </ul>
       </React.Fragment>
     );

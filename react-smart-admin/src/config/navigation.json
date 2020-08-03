@@ -402,6 +402,29 @@
           "route": "/misc/ck-editor"
         }
       ]
+    },
+    {
+      "title": "Danh mục",
+
+      "icon": "fa fa-lg fa-fw fa-list",
+      "items": [
+        {
+          "route": "/danh-muc/phong-ban",
+          "title": "Phòng ban"
+        },
+        {
+          "route": "/danh-muc/tinh-thanh",
+          "title": "Tỉnh thành"
+        },
+        {
+          "route": "/danh-muc/quan-huyen",
+          "title": "Quận huyện"
+        },
+        {
+          "route": "/danh-muc/xa-phuong",
+          "title": "Xã phường"
+        }
+      ]
     }
   ]
 }

@@ -7,9 +7,12 @@ import { authRoutes } from "./routes";
 import { Layout } from "./common/layout";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={store} >
         <HashRouter>
           <Switch>
             {authRoutes.map((route, idx) => {

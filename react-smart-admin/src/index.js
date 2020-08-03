@@ -6,7 +6,21 @@ import App from "./App";
 
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById("smartadmin-root"));
+import { Provider } from 'mobx-react';
+import initializeStores from './stores/storeInitializer';
+import Utils from './utils/utils';
+import abpUserConfigurationService from './services/abpUserConfigurationService';
+var abp = window.abp;
+Utils.setLocalization();
+const stores = initializeStores();
+ReactDOM.render(
+    (
+        <Provider {...stores}>
+
+            <App />
+        </Provider>
+    ),
+    document.getElementById("smartadmin-root"));
 
 
 // If you want your app to work offline and load faster, you can change

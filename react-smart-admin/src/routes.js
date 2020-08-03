@@ -12,6 +12,7 @@ import { routes as smartadminIntel } from "./views/smartadmin-intel";
 import { routes as tables } from "./views/tables";
 import { routes as ui } from "./views/ui";
 import { routes as widgets } from "./views/widgets";
+import { routes as danhmuc } from "./app/danhmuc";
 
 export const routes = [
   
@@ -27,7 +28,8 @@ export const routes = [
   ...smartadminIntel,
   ...tables,
   ...ui,
-  ...widgets
+  ...widgets,
+  ...danhmuc
 ];
 
 export const authRoutes = [

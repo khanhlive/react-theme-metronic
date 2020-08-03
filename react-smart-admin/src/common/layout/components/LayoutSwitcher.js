@@ -28,7 +28,7 @@ class LayoutSwitcher extends React.Component {
         })}
       >
         <span id="demo-setting" onClick={this.onToggle}>
-          <i className="fa fa-cog txt-color-blueDark" />
+          <i className="fa fa-cogs fa-spin txt-color-blueDark" />
         </span>
         <form>
           <legend className="no-padding margin-bottom-10">

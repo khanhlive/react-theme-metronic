@@ -1,16 +1,20 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
-import Stores from "../../../../stores/storeInitializer";
+import Stores from "../../../../stores/storeIdentifier";
 
-const PhongBan = inject((stores) => ({
-  ...stores,
-}))(
+const PhongBan = inject(
+  Stores.AuthenticationStore,
+  Stores.SessionStore,
+  Stores.AccountStore,
+  "storeapp"
+)(
+  //Stores.AuthenticationStore,Stores.SessionStore, Stores.AccountStore)(
   observer(
     class PhongBan extends PureComponent {
       constructor(props) {
         super(props);
-debugger
+        debugger;
         this.state = {
           hasError: false,
         };
@@ -40,11 +44,32 @@ debugger
         console.log("PhongBan will unmount");
       };
 
+      onHandleChangeStore() {
+        let model = this.props.storeapp.loginModel;
+        model = {
+          userNameOrEmailAddress: "admin",
+          password: "123qwe",
+          rememberClient: true,
+        };
+        //this.props.storeapp.setModel(model == "khanhnd" ? "dungtt" : "khanhnd");
+        this.props.storeapp.login(model);
+      }
+
       render() {
-        if (this.state.hasError) {
-          return <h1>Something went wrong.</h1>;
-        }
-        return <div className="PhongBanWrapper">PhongBanWrapper</div>;
+        return (
+          <div className="PhongBanWrapper">
+            PhongBanWrapper storeapp:{" "}
+            {this.props.storeapp.loginModel
+              ? this.props.storeapp.loginModel.userNameOrEmailAddress
+              : ""}
+            <br></br>
+            {/* userNameOrEmailAddress:
+            {this.props.authenticationStore.loginModel.userNameOrEmailAddress} */}
+            <button type="button" onClick={this.onHandleChangeStore.bind(this)}>
+              Change Value
+            </button>
+          </div>
+        );
       }
     }
   )

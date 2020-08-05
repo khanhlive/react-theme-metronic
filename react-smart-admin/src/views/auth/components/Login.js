@@ -1,16 +1,13 @@
 import React from "react";
 import UiValidate from "../../../common/forms/validation/UiValidate";
 import { inject, observer } from "mobx-react";
-import Stores from "../../../stores/storeInitializer";
+import Stores from "../../../stores/storeIdentifier";
 
-const Login = inject((stores) => ({
-  ...stores
-}))(
+const Login = inject(Stores.AuthenticationStore,Stores.SessionStore, Stores.AccountStore)(
   observer(
     class Login extends React.Component {
       constructor(props) {
         super(props);
-        debugger
         this.state = {
           loginModel: this.props.authenticationStore.loginModel || {}
         }

@@ -7,7 +7,7 @@ var abp = window.abp;
 class AuthenticationStore {
   loginModel
 
-  get isAuthenticated() {
+  isAuthenticated() {
     if (!abp.session.userId) return false;
 
     return true;
@@ -15,12 +15,13 @@ class AuthenticationStore {
 
   //@action
   async login(model) {
+    this.loginModel = model;
     let result = await tokenAuthService.authenticate({
       userNameOrEmailAddress: model.userNameOrEmailAddress,
       password: model.password,
       rememberClient: model.rememberMe,
     });
-
+    debugger
     var tokenExpireDate = model.rememberMe ? new Date(new Date().getTime() + 1000 * result.expireInSeconds) : undefined;
     abp.auth.setToken(result.accessToken, tokenExpireDate);
     abp.utils.setCookieValue(AppConsts.authorization.encrptedAuthTokenName, result.encryptedAccessToken, tokenExpireDate, abp.appPath);
@@ -35,6 +36,7 @@ class AuthenticationStore {
 }
 decorate(AuthenticationStore, {
   loginModel: observable,
+  isAuthenticated: action,
   login: action,
   logout: action
 })

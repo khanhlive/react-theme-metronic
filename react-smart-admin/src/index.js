@@ -10,12 +10,17 @@ import { Provider } from 'mobx-react';
 import initializeStores from './stores/storeInitializer';
 import Utils from './utils/utils';
 import abpUserConfigurationService from './services/abpUserConfigurationService';
+import StoreApp from './stores/StoreApp'
+
+
 var abp = window.abp;
 Utils.setLocalization();
 const stores = initializeStores();
+const storeapp = StoreApp;
+
 ReactDOM.render(
     (
-        <Provider {...stores}>
+        <Provider {...stores} storeapp={storeapp}>
 
             <App />
         </Provider>

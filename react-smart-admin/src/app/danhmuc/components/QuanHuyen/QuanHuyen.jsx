@@ -1,11 +1,9 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { inject, observer } from "mobx-react";
-import Stores from "../../../../stores/storeInitializer";
+import Stores from "../../../../stores/storeIdentifier";
 
-const QuanHuyen = inject((stores) => ({
-  ...stores,
-}))(
+const QuanHuyen = inject(Stores.AuthenticationStore,Stores.SessionStore, Stores.AccountStore)(
   observer(
     class QuanHuyen extends PureComponent {
       constructor(props) {

@@ -3,9 +3,17 @@ import tokenAuthService from '../services/tokenAuth/tokenAuthService';
 import AppConsts from './../lib/appconst';
 
 class StoreApp {
+    constructor() {
+        this.items = [];
+    }
     loginModel;
+    items;
     setModel(_model) {
         this.loginModel = _model;
+    }
+    add(item) {
+        this.items = this.items ? this.items : [];
+        this.items.push(item);
     }
     login(model) {
         this.loginModel = model;
@@ -24,6 +32,8 @@ class StoreApp {
 decorate(StoreApp, {
     loginModel: observable,
     setModel: action,
-    login: action
+    login: action,
+    items:observable,
+    add:action
 })
 export default new StoreApp();

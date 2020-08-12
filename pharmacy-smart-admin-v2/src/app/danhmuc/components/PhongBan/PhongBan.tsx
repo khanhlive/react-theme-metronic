@@ -1,7 +1,9 @@
 import React, { PureComponent } from "react";
 import { inject, observer } from "mobx-react";
-//import Stores from "../../../../stores/storeIdentifier";
-@inject("storeapp")
+import Stores from "../../../../stores/storeIdentifier";
+import LoginModel from '../../../../models/Login/loginModel'
+
+@inject('storeapp', Stores.AccountStore, Stores.AuthenticationStore, Stores.SessionStore)
 @observer
 class PhongBan extends PureComponent<any, any> {
   constructor(props: any) {
@@ -26,6 +28,10 @@ class PhongBan extends PureComponent<any, any> {
 
   onHandleChangeStore() {
     this.props.storeapp.changeName('khanhnd');
+    let model = new LoginModel();
+    model.userNameOrEmailAddress = 'khanhndsdsdds';
+    this.props.authenticationStore.loginModel = model;
+
     // model = {
     //   userNameOrEmailAddress: "admin",
     //   password: "123qwe",
@@ -43,7 +49,7 @@ class PhongBan extends PureComponent<any, any> {
         <br />
         PhongBanWrapper authStore:{" "}
         <br></br>
-
+        email: {this.props.authenticationStore.loginModel ? this.props.authenticationStore.loginModel.userNameOrEmailAddress : ''}
         <button type="button" onClick={this.onHandleChangeStore.bind(this)}>
           Change Value
         </button>

@@ -7,13 +7,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'mobx-react';
 import AuthStore from './stores/AuthStore';
-import StoreInit from './stores/StoreInit'
+import StoreInit from './stores/storeInitializer'
 const storeapp = StoreInit()
 ReactDOM.render(
   <Provider {...storeapp}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Provider>,
   document.getElementById("smartadmin-root")
 );

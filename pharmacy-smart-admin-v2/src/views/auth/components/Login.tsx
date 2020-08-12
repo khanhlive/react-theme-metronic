@@ -1,41 +1,43 @@
 import React from "react";
 import UiValidate from "../../../common/forms/validation/UiValidate";
 import { inject, observer } from "mobx-react";
-//import Stores from "../../../stores/storeIdentifier";
-//@inject('storeapp')
-//@observer
-class Login extends React.Component {
-  constructor(props) {
+import Stores from "../../../stores/storeIdentifier";
+@inject('storeapp', Stores.AccountStore, Stores.AuthenticationStore, Stores.SessionStore)
+@observer
+class Login extends React.Component<any, any> {
+  formLogin: any;
+  formLogin1: any;
+  constructor(props: any) {
     super(props);
+    let model = this.props.authenticationStore.loginModel || {};
+    model.rememberMe = model.rememberMe == null || model.rememberMe == undefined ? true : model.rememberMe;
     this.state = {
-      loginModel: this.props.authenticationStore.loginModel || {},
+      loginModel: model,
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-  onClick = (e) => {
+  onClick = (e: any) => {
     e.preventDefault();
   };
-  onChange(e) {
+  onChange(e: any) {
+
     let _state = this.state;
-    _state.loginModel[e.target.name] = e.target.value;
+    if (e.target.type == 'checkbox') {
+      _state.loginModel[e.target.name] = e.target.checked;
+    } else {
+      _state.loginModel[e.target.name] = e.target.value;
+    }
     this.setState(_state);
   }
-  async onSubmit(e) {
+  async onSubmit(e: any) {
     e.preventDefault();
-    debugger;
     let loginModel = this.state.loginModel;
     //const { loginModel } = this.props.authenticationStore;
     await this.props.authenticationStore.login(loginModel);
     sessionStorage.setItem("rememberMe", loginModel.rememberMe ? "1" : "0");
     const { state } = this.props.location;
-    window.location = state ? state.from.pathname : "/";
-  }
-  onHandleChangeStore() {
-
-    this.props.storeapp.add(1);
-    // const { state } = this.props.location;
-    // window.location = state ? state.from.pathname : "/";
+    //window.location = state ? state.from.pathname : "/";
   }
   render() {
     return (
@@ -192,9 +194,6 @@ class Login extends React.Component {
                         <button type="submit" className="btn btn-primary">
                           Sign in
                             </button>
-                        <button onClick={this.onHandleChangeStore.bind(this)} type="button" className="btn btn-primary">
-                          Login
-                            </button>
                       </footer>
                     </form>
                   </UiValidate>
@@ -237,14 +236,4 @@ class Login extends React.Component {
     );
   }
 }
-// const Login = inject(
-//   Stores.AuthenticationStore,
-//   Stores.SessionStore,
-//   Stores.AccountStore,
-//   "storeapp"
-// )(
-//   observer(
-
-//   )
-// );
 export default Login;

@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { observer, inject } from 'mobx-react';
+import Stores from "../../stores/storeIdentifier";
 
-@inject("storeapp")
+@inject('storeapp', Stores.AccountStore, Stores.AuthenticationStore, Stores.SessionStore)
 @observer
 class PhongBan extends PureComponent<any, any> {
   constructor(props: any) {
@@ -18,6 +19,7 @@ class PhongBan extends PureComponent<any, any> {
         PhongBanWrapper
         <div>
           storeapp name: {this.props.storeapp.name}
+          <br />
         </div>
       </div>
     );

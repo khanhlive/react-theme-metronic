@@ -7,7 +7,7 @@ import { routes as forms } from "./views/forms";
 import { routes as graphs } from "./views/graphs";
 import { routes as maps } from "./views/maps";
 import { routes as misc } from "./views/misc";
-import { routes as outlook } from "./views/outlook";
+//import { routes as outlook } from "./views/outlook";
 import { routes as smartadminIntel } from "./views/smartadmin-intel";
 import { routes as tables } from "./views/tables";
 import { routes as ui } from "./views/ui";
@@ -23,7 +23,7 @@ export const routes = [
   ...graphs,
   ...maps,
   ...misc,
-  ...outlook,
+  //...outlook,
   ...smartadminIntel,
   ...tables,
   ...ui,

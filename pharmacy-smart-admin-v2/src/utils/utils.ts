@@ -11,6 +11,8 @@ class Utils {
     document.body.appendChild(script);
   }
 
+  load() {}
+
   extend(...args: any[]) {
     let options,
       name,

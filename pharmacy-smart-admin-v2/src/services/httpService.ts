@@ -10,7 +10,7 @@ declare var abp: any;
 const http = axios.create({
   baseURL: AppConsts.remoteServiceBaseUrl,
   timeout: 30000,
-  paramsSerializer: function(params) {
+  paramsSerializer: function (params) {
     return qs.stringify(params, {
       encode: false,
     });
@@ -18,7 +18,7 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(
-  function(config) {
+  function (config) {
     if (!!abp.auth.getToken()) {
       config.headers.common["Authorization"] = "Bearer " + abp.auth.getToken();
     }
@@ -32,7 +32,7 @@ http.interceptors.request.use(
 
     return config;
   },
-  function(error) {
+  function (error) {
     return Promise.reject(error);
   }
 );

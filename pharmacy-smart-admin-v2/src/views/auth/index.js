@@ -6,6 +6,11 @@ const Login = Loadable({
   loading: Loading
 });
 
+const Logout = Loadable({
+  loader: () => import("./components/Logout"),
+  loading: Loading
+});
+
 const LockedScreen = Loadable({
   loader: () => import("./components/LockedScreen"),
   loading: Loading
@@ -27,6 +32,12 @@ export const routes = [
     exact: true,
     component: Login,
     name: "Login"
+  },
+  {
+    path: "/logout",
+    exact: true,
+    component: Logout,
+    name: "Logout"
   },
   {
     path: "/lock",

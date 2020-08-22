@@ -2,6 +2,8 @@ import React from "react";
 import UiValidate from "../../../common/forms/validation/UiValidate";
 import { inject, observer } from "mobx-react";
 import Stores from "../../../stores/storeIdentifier";
+import { Redirect } from 'react-router-dom';
+
 @inject('storeapp', Stores.AccountStore, Stores.AuthenticationStore, Stores.SessionStore)
 @observer
 class Login extends React.Component<any, any> {
@@ -36,10 +38,32 @@ class Login extends React.Component<any, any> {
     //const { loginModel } = this.props.authenticationStore;
     await this.props.authenticationStore.login(loginModel);
     sessionStorage.setItem("rememberMe", loginModel.rememberMe ? "1" : "0");
+    //localStorage.setItem('isLogin', "true");
+    //await this.refreshSession();
     const { state } = this.props.location;
-    //window.location = state ? state.from.pathname : "/";
+    //this.props.history.push(state ? state.from.pathname : "/");
+    window.location = state ? state.from.pathname : "/";
+  }
+
+  async refreshSession() {
+    await this.props.sessionStore!.getCurrentLoginInformations();
+
+    if (!!this.props.sessionStore!.currentLogin.user && this.props.sessionStore!.currentLogin.application.features['SignalR']) {
+      if (this.props.sessionStore!.currentLogin.application.features['SignalR.AspNetCore']) {
+
+        //SignalRAspNetCoreHelper.initSignalR();
+      }
+    }
   }
   render() {
+    let { from } = this.props.location.state || { from: { pathname: '/' } };
+    debugger
+    // if (from['pathname'].indexOf('logout') >= 0) {
+    //   from = {
+    //     from: { pathname: '/' }
+    //   }
+    // }
+    if (this.props.authenticationStore!.isAuthenticated) return <Redirect to={from} />;
     return (
       <div id="extr-page">
         <header id="header" className="animated fadeInDown">

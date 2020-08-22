@@ -13,6 +13,10 @@ import { routes } from "../../../routes";
 
 class Layout extends React.Component {
   render() {
+    let isLogin = (localStorage.getItem('isLogin')) == "true";
+    // if (!isLogin)
+    //   return <Redirect to="/login" push></Redirect>
+
     return (
       <div>
         <Header />

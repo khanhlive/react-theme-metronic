@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import 'devextreme/dist/css/dx.common.css';
-import 'devextreme/dist/css/dx.light.css';
+// import 'devextreme/dist/css/dx.light.css';
+import './lib/css/dx.generic.kd-theme-v3.css'
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import SignalRAspNetCoreHelper from './lib/signalRAspNetCoreHelper';
 import { Provider } from "react-redux";
@@ -22,7 +23,7 @@ export interface IAppProps {
 
 @inject(Stores.SessionStore)
 class App extends React.Component<IAppProps> {
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     await this.props.sessionStore!.getCurrentLoginInformations();
 
     if (!!this.props.sessionStore!.currentLogin.user && this.props.sessionStore!.currentLogin.application.features['SignalR']) {

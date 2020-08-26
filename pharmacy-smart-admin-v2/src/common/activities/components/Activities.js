@@ -122,7 +122,7 @@ export class Activities extends React.Component {
     $dropdownToggle.toggleClass("active", this._active);
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fetch();
   }
 

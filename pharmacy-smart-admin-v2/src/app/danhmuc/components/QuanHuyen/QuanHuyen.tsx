@@ -9,10 +9,6 @@ class QuanHuyen extends PureComponent<any, any> {
     super(props);
   }
 
-  componentWillMount = () => {
-    console.log("QuanHuyen will mount");
-  };
-
   componentDidMount = () => {
     console.log("QuanHuyen mounted");
   };

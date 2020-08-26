@@ -1,8 +1,8 @@
 import ServiceBase from "../../ServiceBase";
 
-class BenhVienService extends ServiceBase<any, any, any> {
+class PhongBanService extends ServiceBase<any, any, any> {
   constructor() {
-    super("id", "benhvien");
+    super("id", "phongban");
   }
 
   public async GetCustomData(): Promise<any> {
@@ -11,4 +11,4 @@ class BenhVienService extends ServiceBase<any, any, any> {
   }
 }
 
-export default new BenhVienService();
+export default new PhongBanService();

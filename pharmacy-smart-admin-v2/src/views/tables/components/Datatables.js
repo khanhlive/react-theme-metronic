@@ -8,6 +8,7 @@ import {
 } from "../../../common";
 
 import Datatable from "../../../common/tables/components/Datatable";
+import $ from 'jquery'
 
 export default class Datatables extends React.Component {
   render() {
@@ -38,6 +39,15 @@ export default class Datatables extends React.Component {
                       options={{
                         ajax: "assets/api/tables/datatables.standard.json",
                         columns: [
+                          {
+                            data: "id",
+                            render: (data, type, row, a, b, v) => {
+                              debugger
+
+
+                              return ''
+                            }
+                          },
                           { data: "id" },
                           { data: "name" },
                           { data: "phone" },
@@ -45,14 +55,25 @@ export default class Datatables extends React.Component {
                           { data: "zip" },
                           { data: "city" },
                           { data: "date" }
-                        ]
+                        ],
+                        // columnDefs: [{
+                        //   orderable: false,
+                        //   className: 'select-checkbox',
+                        //   targets: 0
+                        //}],
+                        select: {
+                          style: 'os',
+                          selector: 'th:first-child'
+                        },
                       }}
+
                       paginationLength={true}
                       className="table table-striped table-bordered table-hover"
                       width="100%"
                     >
                       <thead>
                         <tr>
+                          <th></th>
                           <th data-hide="phone">ID</th>
                           <th data-class="expand">
                             <i className="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs" />

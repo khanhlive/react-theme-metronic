@@ -16,7 +16,7 @@ export default class TreeViews extends React.Component {
     demo2: []
   };
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     getJSON("assets/api/ui-examples/tree-view.json").then(data => {
       this.setState(data);
     });

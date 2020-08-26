@@ -13,10 +13,6 @@ class TinhThanh extends PureComponent<any, any> {
     };
   }
 
-  componentWillMount = () => {
-    console.log('TinhThanh will mount');
-  }
-
   componentDidMount = () => {
     console.log('TinhThanh mounted');
   }

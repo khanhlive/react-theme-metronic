@@ -1,6 +1,7 @@
 import http from "./httpService";
-import { AxiosResponse } from "axios";
+import { AxiosResponse, AxiosInstance } from "axios";
 import * as AspNetData from "devextreme-aspnet-data-nojquery";
+import AppConsts from "../lib/appconst";
 
 export interface IServiceBase<Dto, CreateDto, UpdateDto> {
   /**
@@ -46,44 +47,87 @@ export interface IServiceBase<Dto, CreateDto, UpdateDto> {
   delete(id: number | null | undefined): Promise<void>;
 }
 
+interface IAbp_Actions {
+  GetPaging?: string;
+  Create?: string;
+  Edit?: string;
+  Delete?: string;
+  Get?: string;
+  GetJson?: string;
+  Existed?: string;
+  DevExtreme?: string;
+}
+
+export const Abp_Actions: IAbp_Actions = {
+  GetPaging: "get-paging",
+  Create: "create",
+  Edit: "update",
+  Delete: "delete",
+  Get: "get",
+  GetJson: "get-kendo",
+  Existed: "existed",
+  DevExtreme: "get-devextreme",
+};
+
 class ServiceBase<Dto, CreateDto, UpdateDto>
   implements IServiceBase<Dto, CreateDto, UpdateDto> {
   keyExpr?: string;
-  constructor() {}
-  async getPaging(
+  baseUrl?: string = AppConsts.remoteServiceBaseUrl;
+  protected httpBase: AxiosInstance = http;
+  protected entityName?: string;
+  constructor(keyExpr: string, entityName: string) {
+    this.keyExpr = keyExpr;
+    this.entityName = entityName;
+  }
+  public async getPaging(
     skipCount: number | null | undefined,
     maxResultCount: number | null | undefined
   ): Promise<any> {
-    let res = await http.get("/api/services/app/benhvien/get-paging", {
-      params: { skipCount: skipCount, maxResultCount: maxResultCount },
-    });
+    let res = await this.httpBase.get(
+      `/api/services/app/${this.entityName}/${Abp_Actions.GetPaging}`,
+      {
+        params: { skipCount: skipCount, maxResultCount: maxResultCount },
+      }
+    );
     return this.processResponseData(res);
   }
-  async create(input: CreateDto | null | undefined): Promise<Dto> {
-    let res = await http.post("/api/services/app/benhvien/create", input);
+  public async create(input: CreateDto | null | undefined): Promise<Dto> {
+    let res = await this.httpBase.post(
+      `/api/services/app/${this.entityName}/${Abp_Actions.Create}`,
+      input
+    );
     return this.processResponseData(res);
   }
 
-  async update(input: UpdateDto | null | undefined): Promise<Dto> {
-    let res = await http.put("/api/services/app/benhvien/update", input);
+  public async update(input: UpdateDto | null | undefined): Promise<Dto> {
+    let res = await this.httpBase.put(
+      `/api/services/app/${this.entityName}/${Abp_Actions.Edit}`,
+      input
+    );
     return this.processResponseData(res);
   }
-  async get(id: number | null | undefined): Promise<Dto> {
-    let res = await http.get("/api/services/app/benhvien/get", {
-      params: { id: id },
-    });
+  public async get(id: number | null | undefined): Promise<Dto> {
+    let res = await this.httpBase.get(
+      `/api/services/app/${this.entityName}/${Abp_Actions.Get}`,
+      {
+        params: { id: id },
+      }
+    );
     return this.processResponseData(res);
   }
-  async delete(id: number | null | undefined): Promise<void> {
-    let res = await http.get("/api/services/app/benhvien/delete", {
-      params: { id: id },
-    });
+  public async delete(id: number | null | undefined): Promise<void> {
+    let res = await this.httpBase.get(
+      `/api/services/app/${this.entityName}/${Abp_Actions.Delete}`,
+      {
+        params: { id: id },
+      }
+    );
     return this.processResponseData(res);
   }
   public GetAspNetDataSource(): any {
     return AspNetData.createStore({
       key: this.keyExpr,
-      loadUrl: `http://localhost:21021/api/services/app/benhvien/get-devextreme`,
+      loadUrl: `${this.baseUrl}/api/services/app/${this.entityName}/${Abp_Actions.DevExtreme}`,
       loadMethod: "POST",
       onBeforeSend: function (method, ajaxOptions) {
         //callback(component, method, ajaxOptions);
@@ -92,7 +136,7 @@ class ServiceBase<Dto, CreateDto, UpdateDto>
     });
   }
 
-  private processResponseData(res: AxiosResponse<any>) {
+  protected processResponseData(res: AxiosResponse<any>) {
     return res.data.result;
   }
 }

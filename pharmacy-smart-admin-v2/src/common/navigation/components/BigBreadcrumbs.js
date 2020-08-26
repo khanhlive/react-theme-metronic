@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
-export default class BigBreadcrumbs extends React.Component {
+class BigBreadcrumbs extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,3 +49,13 @@ export default class BigBreadcrumbs extends React.Component {
     );
   }
 }
+BigBreadcrumbs.propTypes = {
+  className: PropTypes.string,
+  items: PropTypes.array,
+  icon: PropTypes.string
+
+}
+BigBreadcrumbs.defaultProps = {
+  className: 'col-xs-12 col-sm-7 col-md-7 col-lg-4'
+}
+export default BigBreadcrumbs;

@@ -34,7 +34,7 @@ const OutlookCompose = Loadable({
 });
 
 class Outlook extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.dispatch(outlookInit());
   }
 

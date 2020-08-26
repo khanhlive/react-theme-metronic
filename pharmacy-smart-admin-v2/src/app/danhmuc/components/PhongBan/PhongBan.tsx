@@ -10,8 +10,11 @@ import AppConsts from '../../../../lib/appconst';
 import http from '../../../../services/httpService';
 import BenhVienService from '../../../../services/danhmuc/benh-vien/BenhVienService';
 import DataGrid, { Column, Paging, Pager } from 'devextreme-react/data-grid';
+import PhongBanService from '../../../../services/danhmuc/phong-ban/PhongBanService';
+import { JarvisWidget, WidgetGrid, Stats, BigBreadcrumbs } from '../../../../common';
+import DataGridCustom from '../../../../common/tables/components/DataGridCustom';
 
-const store: any = BenhVienService.GetAspNetDataSource();
+const store: any = PhongBanService.GetAspNetDataSource();
 
 @inject('storeapp', Stores.AccountStore, Stores.AuthenticationStore, Stores.SessionStore)
 @observer
@@ -22,23 +25,14 @@ class PhongBan extends PureComponent<any, any> {
   }
   service: BenhvienClient = new BenhvienClient(AppConsts.remoteServiceBaseUrl, http);
 
-  componentWillMount = () => {
-    console.log("PhongBan will mount");
-    let model: PagedTenantResultRequestDto = {
-      keyword: '',
-      skipCount: 0,
-      maxResultCount: 10
-    }
-  };
-
   componentDidMount = () => {
     console.log("PhongBan mounted");
     // this.service.getPaging(0, 10).then((res) => {
     //   console.log(res);
     // });
-    // BenhVienService.getPaging(0, 10).then(res => {
-    //   console.log(res);
-    // })
+    PhongBanService.getPaging(0, 10).then(res => {
+      console.log(res);
+    })
   };
 
   componentDidUpdate = () => {
@@ -67,44 +61,149 @@ class PhongBan extends PureComponent<any, any> {
 
   render() {
     return (
-      <div className="PhongBanWrapper">
-        <h3>PhongBanWrapper</h3>
-        <DataGrid
-          dataSource={store}
-          showBorders={true}
-          remoteOperations={true}
-        >
-          <Column
-            dataField="ma"
-            dataType="string"
+
+      <div id="content">
+        <div className="row">
+          <BigBreadcrumbs
+            items={["Danh mục", "Phòng ban"]}
+            icon="fa fa-fw fa-table"
+
           />
-          <Column
-            dataField="ten"
-            dataType="string"
-          />
-          <Column
-            dataField="chuQuanMa"
-            dataType="string"
-          />
-          <Column
-            dataField="tuyen"
-            dataType="string"
-          />
-          <Column
-            dataField="hang"
-            dataType="string"
-          />
-          <Column
-            dataField="diaChi"
-            dataType="string"
-          />
-          <Paging defaultPageSize={12} />
-          <Pager
-            showPageSizeSelector={true}
-            allowedPageSizes={[8, 12, 20]}
-          />
-        </DataGrid>
+          <Stats />
+        </div>
+        <WidgetGrid>
+          <div className="row">
+            <article className="col-sm-12">
+              <JarvisWidget id="wid-id-0" editbutton={false} color="darken" refresh={true}>
+                <header>
+                  <span className="widget-icon">
+                    <i className="fa fa-table" />
+                  </span>
+                  <h2>Standard Data Tables</h2>
+                </header>
+                <div>
+                  <div className="widget-body no-padding">
+                    <DataGridCustom
+                      dataSource={store}
+                      selectionMode="single"
+                      onSelectionChanged={(e: any) => console.log(e)}
+                    >
+                      <Column
+                        dataField="ma"
+                        caption="Mã"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="ten"
+                        caption="Tên"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="nhom"
+                        caption="Nhóm"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="chuyenKhoaTen"
+                        caption="Chuyên khoa"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="isTrongBenhVien"
+                        caption="Trong bệnh viện"
+                        dataType="boolean"
+                        width={100}
+                      />
+                      <Column
+                        dataField="diaChi"
+                        caption="Địa chỉ"
+                        dataType="string"
+                      />
+                    </DataGridCustom>
+                  </div>
+                </div>
+              </JarvisWidget>
+            </article>
+          </div>
+        </WidgetGrid>
+        <WidgetGrid>
+          <div className="row">
+            <article className="col-sm-12">
+              <JarvisWidget id="wid-id-0" editbutton={false} color="darken" refresh={true}>
+                <header>
+                  <span className="widget-icon">
+                    <i className="fa fa-table" />
+                  </span>
+                  <h2>Standard Data Tables</h2>
+                </header>
+                <div>
+                  <div className="widget-body no-padding">
+                    <DataGrid
+                      dataSource={store}
+                      showBorders={true}
+                      remoteOperations={true}
+                      rowAlternationEnabled={true}
+                      showRowLines={true}
+                      loadPanel={{ text: 'Đang tải...' }}
+                      selection={
+                        {
+                          mode: 'multiple',
+                          selectAllMode: 'page',
+                          allowSelectAll: true,
+                          showCheckBoxesMode: 'always'
+                        }
+                      }
+                      onInitialized={(e) => {
+                        e.element?.classList.add('dx-datagrid-smart');
+                      }}
+                      filterRow={{ visible: true }}
+                      searchPanel={{ visible: true, width: 350, placeholder: 'Tìm kiếm...' }}
+                    >
+                      <Column
+                        dataField="ma"
+                        caption="Mã"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="ten"
+                        caption="Tên"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="nhom"
+                        caption="Nhóm"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="chuyenKhoaTen"
+                        caption="Chuyên khoa"
+                        dataType="string"
+                      />
+                      <Column
+                        dataField="isTrongBenhVien"
+                        caption="Trong bệnh viện"
+                        dataType="boolean"
+                      />
+                      <Column
+                        dataField="diaChi"
+                        caption="Địa chỉ"
+                        dataType="string"
+                      />
+                      <Paging defaultPageSize={10} />
+                      <Pager
+                        showPageSizeSelector={true}
+                        showNavigationButtons={true}
+                        allowedPageSizes={[5, 10, 25, 50, 100]}
+                      />
+                    </DataGrid>
+                  </div>
+                </div>
+              </JarvisWidget>
+            </article>
+          </div>
+        </WidgetGrid>
       </div>
+
     );
   }
 }

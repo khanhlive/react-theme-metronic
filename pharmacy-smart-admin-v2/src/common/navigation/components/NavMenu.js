@@ -12,7 +12,7 @@ import NavMenuList from "./NavMenuList";
 const navItems = require("../../../config/navigation.json").items.map(addId);
 
 export default class NavMenu extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     store.dispatch(navigationInit(navItems));
   }
 

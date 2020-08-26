@@ -4,7 +4,7 @@ import ToggleShortcut from "./ToggleShortcut";
 import { connect } from "react-redux";
 
 class LoginInfo extends React.Component {
-  componentWillMount() {}
+  UNSAFE_componentWillMount() {}
 
   render() {
     return (

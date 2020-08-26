@@ -17,6 +17,41 @@
  * - BODY
  * - CUSTOM STYLES
  */
- #extr-page #header{
-     position: relative;
- }
+#extr-page #header {
+  position: relative;
+}
+
+/* devextreme css custom  */
+.fc-border-separate thead tr,
+.table thead tr,
+.table-header thead tr,
+.dx-datagrid-headers .dx-datagrid-table tbody tr.dx-header-row {
+  background-color: #eee;
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    from(#f2f2f2),
+    to(#fafafa)
+  );
+  background-image: -webkit-linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+  background-image: -moz-linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+  background-image: -ms-linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+  background-image: -o-linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+  background-image: -linear-gradient(top, #f2f2f2 0, #fafafa 100%);
+  /* font-size: 12px; */
+}
+
+.dx-datagrid-smart .dx-datagrid-borders > .dx-datagrid-headers,
+.dx-datagrid-smart .dx-datagrid-borders > .dx-datagrid-rowsview,
+.dx-datagrid-smart .dx-datagrid-borders > .dx-datagrid-total-footer {
+  border-left: none;
+  border-right: none;
+}
+.dx-datagrid-smart .dx-datagrid-search-panel {
+  margin-right: 10px;
+}
+.dx-datagrid-smart {
+  padding-top: 10px !important;
+}
+/* end devextreme css custom  */

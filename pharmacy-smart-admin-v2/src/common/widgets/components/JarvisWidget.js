@@ -21,7 +21,7 @@ export default class JarvisWidget extends React.Component {
     refresh: false
   };
 
-  componentWillMount() {}
+  UNSAFE_componentWillMount() {}
 
   genId() {
     if (this.props.name) {

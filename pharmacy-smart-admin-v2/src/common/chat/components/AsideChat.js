@@ -12,7 +12,7 @@ class AsideChatWidget extends React.Component {
     filter: ""
   };
 
-  componentWillMount() { }
+  UNSAFE_componentWillMount() { }
 
   openToggle = e => {
     e.preventDefault();

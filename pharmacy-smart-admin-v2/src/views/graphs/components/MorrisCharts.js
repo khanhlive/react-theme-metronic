@@ -14,7 +14,7 @@ import { MorrisGraph } from "../../../common/graphs/morris";
 export default class MorrisCharts extends React.Component {
   state = {};
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     request("GET", "assets/api/graphs/morris.json", { json: true }).done(
       res => {
         this.setState(JSON.parse(res.getBody()));

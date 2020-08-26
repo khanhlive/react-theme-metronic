@@ -10,20 +10,15 @@ class TinhThanh extends PureComponent {
       hasError: false,
     };
   }
-
-  componentWillMount = () => {
-    console.log("TinhThanh will mount");
-  };
-
   componentDidMount = () => {
     console.log("TinhThanh mounted");
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     console.log("TinhThanh will receive props", nextProps);
   };
 
-  componentWillUpdate = (nextProps, nextState) => {
+  UNSAFE_componentWillUpdate = (nextProps, nextState) => {
     console.log("TinhThanh will update", nextProps, nextState);
   };
 

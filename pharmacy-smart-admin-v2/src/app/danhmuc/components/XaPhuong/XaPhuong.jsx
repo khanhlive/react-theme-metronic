@@ -11,19 +11,15 @@ class XaPhuong extends PureComponent {
     };
   }
 
-  componentWillMount = () => {
-    console.log("XaPhuong will mount");
-  };
-
   componentDidMount = () => {
     console.log("XaPhuong mounted");
   };
 
-  componentWillReceiveProps = (nextProps) => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     console.log("XaPhuong will receive props", nextProps);
   };
 
-  componentWillUpdate = (nextProps, nextState) => {
+  UNSAFE_componentWillUpdate = (nextProps, nextState) => {
     console.log("XaPhuong will update", nextProps, nextState);
   };
 
